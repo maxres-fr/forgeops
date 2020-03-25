@@ -1,0 +1,39 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: lint-repo
+spec:
+  #  stepTemplate:
+  #    env:
+  #      - name: SLACK_FAILED_WEBHOOK_URL
+  #        valueFrom:
+  #          secretKeyRef:
+  #            name: slack-webhook
+  #            key: SLACK_FAILED_WEBHOOK_URL
+  inputs:
+    resources:
+      - name: mjr-fork
+        type: git
+  steps:
+    - name: lint-repo
+      image: gcr.io/engineering-devops/repo
+      script: |
+        #!/usr/bin/env bash
+        cd mjr-fork;
+        ls -la
+        make -f docker/cli-tools/repo/Makefile lint
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: lint-repo-run
+spec:
+  taskRef:
+    name: lint-repo
+  inputs:
+    resources:
+      - name: mjr-fork
+        resourceRef:
+          name: mjr-fork

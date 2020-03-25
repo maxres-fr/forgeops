@@ -1,0 +1,13 @@
+# vi:syntax=python
+section_regexps = [
+    ('Features', [
+        r'^[fF]eat\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
+     ]),
+    ('Fixes', [
+        r'^[fF]ix\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
+     ]),
+    ('Docs', [
+        r'^[dD]doc\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
+     ]),
+]
+unreleased_version_label = "ForgeOps Release Notes"

@@ -1,0 +1,13 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: pr-premerge
+spec:
+  serviceAccountName: tekton-worker
+  pipelineRef:
+    name: pr-premerge
+  resources:
+    - name: mjr-fork
+      resourceRef:
+        name: mjr-fork

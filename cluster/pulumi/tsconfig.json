@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "outDir": "bin",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "declaration": true,
+        "sourceMap": true,
+        "stripInternal": true,
+        "experimentalDecorators": true,
+        "pretty": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": true
+    },
+    "files": [
+        "aws/infra/index.ts",
+        "aws/eks/index.ts",
+        "gcp/gke/index.ts",
+        "gcp/infra/index.ts",
+        "azure/infra/index.ts",
+        "azure/aks/index.ts"
+    ]
+}

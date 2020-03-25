@@ -1,0 +1,52 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: pr-premerge-template
+spec:
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        generateName: pr-premerge-run-
+      spec:
+        timeout: 45m
+        serviceAccountName: tekton-worker
+        pipelineRef:
+          name: pr-premerge
+        resources:
+          - name: mjr-repo
+            resourceRef:
+              name: mjr-repo
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: pr-premege-binding
+spec:
+  params:
+    - name: gitrevision
+      value: $(body.head_commit.id)
+    - name: gitrepositoryurl
+      value: "https://github.com/$(body.repository.full_name)"
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: pr-build-trigger
+spec:
+  serviceAccountName: tekton-worker
+  triggers:
+    - name: pr-premerge-trigger
+      interceptors:
+        - github:
+            secretRef:
+              secretName: mjr-webhook-secret
+              secretKey: bar
+            eventTypes:
+              - pull_request
+      bindings:
+        - name: pr-premerge-binding
+      template:
+        name: pr-premerge-template

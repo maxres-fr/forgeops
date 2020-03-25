@@ -2,6 +2,9 @@
 REGISTRY_URL=gcr.io/engineering-devops
 VERSION=latest
 
+repo-build:                                                                                                                                
+	docker build -t $(REGISTRY_URL)/repo:$(VERSION) -f docker/cli-tools/repo/Dockerfile . 
+
 cdm-build:
 	docker build --cache-from $(REGISTRY_URL)/yamkt:$(VERSION) -t $(REGISTRY_URL)/cdm-cli:$(VERSION) -f docker/cli-tools/cdm/Dockerfile .
 

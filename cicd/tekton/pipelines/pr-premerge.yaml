@@ -1,0 +1,17 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: pr-premerge
+spec:
+  resources:
+    - name: mjr-fork
+      type: git
+  tasks:
+    - name: lint-repo
+      taskRef:
+        name: lint-repo
+      resources:
+        inputs:
+          - name: workspace
+            resource: mjr-fork

@@ -1,7 +1,8 @@
 {
     "name": "typescript",
     "devDependencies": {
-        "@types/node": "^13.5.0"
+        "@types/node": "^13.5.0",
+        "tslint": "^6.1.0"
     },
     "dependencies": {
         "@pulumi/aws": "^1.15.0",
