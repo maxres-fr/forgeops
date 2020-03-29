@@ -21,7 +21,6 @@ spec:
       script: |
         #!/usr/bin/env bash
         cd mjr-fork;
-        ls -la
         make -f docker/cli-tools/repo/Makefile ts
     - name: lint-yaml
       image: gcr.io/engineering-devops/repo
@@ -35,6 +34,12 @@ spec:
         #!/usr/bin/env bash
         cd mjr-fork;
         make -f docker/cli-tools/repo/Makefile sh
+    - name: lint-commits
+      image: gcr.io/engineering-devops/repo
+      script: |
+        #!/usr/bin/env bash
+        cd mjr-fork;
+        make -f docker/cli-tools/repo/Makefile commit
 
 ---
 apiVersion: tekton.dev/v1alpha1

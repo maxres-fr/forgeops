@@ -3,6 +3,7 @@ SHELL_SCRIPTS = $(wildcard **/*.sh)
 TS_SCRIPTS = $(shell find cluster/pulumi/{aws,azure,gcp} -name "*.ts")
 KUSTOMIZE_YAML = $(shell find kustomize -name "*.yaml")
 TSLINT=cluster/pulumi/node_modules/.bin/tslint
+COMMITSTAR=/usr/local/bin/commitsar
 .PHONY: $(SHELL_SCRIPTS) $(KUSTOMIZE_YAML) $(TS_SCRIPTS)
 
 $(KUSTOMIZE_YAML):
@@ -23,6 +24,9 @@ sh: $(SHELL_SCRIPTS)
 
 lint: ts yaml sh
 	@echo "linted"
+
+commit:
+	$(COMMITSTAR)
 
 release:
 	gitchangelog 
