@@ -21,6 +21,7 @@ spec:
       script: |
         #!/usr/bin/env bash
         cd mjr-fork;
+        ls -la docker/cli-tools/repo
         make -f docker/cli-tools/repo/Makefile ts
     - name: lint-yaml
       image: gcr.io/engineering-devops/repo
