@@ -10,6 +10,6 @@ RUN apt-get update -y \
 
 RUN mkdir -p /opt/workspace  && pip3 install yamllint
 COPY . /opt/workspace
+# TODO this should really only have tslint installed...
 RUN cd /opt/workspace/cluster/pulumi && npm install --only=dev
 WORKDIR /opt/workspace
-

@@ -16,13 +16,25 @@ spec:
       - name: mjr-fork
         type: git
   steps:
-    - name: lint-repo
+    - name: lint-ts
       image: gcr.io/engineering-devops/repo
       script: |
         #!/usr/bin/env bash
         cd mjr-fork;
         ls -la
-        make -f docker/cli-tools/repo/Makefile lint
+        make -f docker/cli-tools/repo/Makefile ts
+    - name: lint-yaml
+      image: gcr.io/engineering-devops/repo
+      script: |
+        #!/usr/bin/env bash
+        cd mjr-fork;
+        make -f docker/cli-tools/repo/Makefile yaml
+    - name: lint-sh
+      image: gcr.io/engineering-devops/repo
+      script: |
+        #!/usr/bin/env bash
+        cd mjr-fork;
+        make -f docker/cli-tools/repo/Makefile sh
 
 ---
 apiVersion: tekton.dev/v1alpha1

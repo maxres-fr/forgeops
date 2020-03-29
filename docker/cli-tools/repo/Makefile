@@ -10,9 +10,19 @@ $(KUSTOMIZE_YAML):
 
 ts:
 	-@$(TSLINT) -t verbose -p cluster/pulumi/tsconfig.json
+	@echo "linted ts"
 
 $(SHELL_SCRIPTS):
 	-shellcheck -f gcc $@
 
-lint: ts $(SHELL_SCRIPTS) $(KUSTOMIZE_YAML)
+yaml: $(KUSTOMIZE_YAML) 
+	@echo "linted yaml"
+
+sh: $(SHELL_SCRIPTS)
+	@echo "linted shell scripts"
+
+lint: ts yaml sh
 	@echo "linted"
+
+release:
+	gitchangelog 
