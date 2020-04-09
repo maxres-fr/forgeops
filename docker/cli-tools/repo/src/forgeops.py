@@ -81,6 +81,9 @@ def active_tag():
     except Exception as e:
         print(e)
         sys.exit(1)
+    if tag_name == 'undefined':
+        print('not on a tag')
+        sys.exit(1)
     return tag_name
 
 def current_tag(args):

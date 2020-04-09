@@ -13,7 +13,8 @@ RUN chmod 2775 /opt/forgeops \
             && PULUMI_HOME=/tmp/pulumi npm --loglevel=error ci --production \
                 && install -g 360360 /tmp/pulumi/plugins/**/* /opt/forgeops/usr/bin \
                     && rm -rf /tmp/pulumi \
-                        && chown -R root:cli /opt/forgeops/usr/node_modules
+                        && chown -R root:cli /opt/forgeops/usr/node_modules \
+                            && rm /opt/forgeops/usr/**/*/Pulumi*
 
 RUN helm --home /opt/forgeops/usr/helm init --client-only \
         && chown -R 0:360360 /opt/forgeops/usr/helm

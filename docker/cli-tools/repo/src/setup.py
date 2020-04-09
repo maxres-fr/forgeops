@@ -14,7 +14,7 @@ setup(name='forgeops',
       packages=[],
       install_requires=['gitchangelog', 'requests', 'mako'],
       entry_points = {
-          'console_scripts': ['forgeops=forgeops.forgeops:main'],
+          'console_scripts': ['forgeops=forgeops:main'],
       },
       classifiers=[
           'Development Status :: 3 - Alpha',
