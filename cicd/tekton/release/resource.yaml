@@ -1,0 +1,14 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: mjr-fork
+spec:
+  type: git
+  params:
+    - name: gitrevision
+      value: poc-pr
+    - name: url
+      value: https://github.com/maxres-fr/forgeops.git
+    - name: depth
+      value: "0"

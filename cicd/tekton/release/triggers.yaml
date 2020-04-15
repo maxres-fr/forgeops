@@ -1,0 +1,81 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: tag-release-template
+spec:
+  params:
+    - name: gitrevision
+      description: The git revision
+      default: master
+    - name: gitrepositoryurl
+      description: The git repository url
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        generateName: tag-release-run-
+      spec:
+        timeout: 45m
+        serviceAccountName: tekton-worker
+        pipelineRef:
+          name: tag-release
+          # pipelineSpec:
+          #  tasks:
+          #    - name: build-release-notes
+          #      taskRef:
+          #        name: release
+          #      resources:
+          #        inputs:
+          #          - name: git-repo
+          #            type: git
+        resources:
+          - name: git-repo
+            resourceSpec:
+              type: git
+              params:
+                - name: revision
+                  value: $(params.gitrevision)
+                - name: url
+                  value: $(params.gitrepositoryurl)
+                - name: depth
+                  value: "0"
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: tag-release-binding
+spec:
+  params:
+    - name: gitrevision
+      value: $(body.tag)
+    - name: gitrepositoryurl
+      value: "https://github.com/$(body.repository.full_name)"
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: github-tag-listener
+spec:
+  serviceAccountName: tekton-worker
+  triggers:
+    - name: github-tag-trigger
+      interceptors:
+        - github:
+            secretRef:
+              secretName: mjr-webhook-secret
+              secretKey: secret
+            eventTypes:
+              - create
+        - cel:
+            filter: "body.ref_type == 'tag'"
+            overlays:
+              - key: tag
+                expression: "body.ref"
+              - key: repository.url
+                expression: "body.repository.clone_url"
+      bindings:
+        - name: tag-release-binding
+      template:
+        name: tag-release-template

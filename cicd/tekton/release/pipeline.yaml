@@ -1,0 +1,17 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: tag-release
+spec:
+  resources:
+    - name: git-repo
+      type: git
+  tasks:
+    - name: release-notes
+      taskRef:
+        name: release-notes
+      resources:
+        inputs:
+          - name: git-repo
+            resource: git-repo

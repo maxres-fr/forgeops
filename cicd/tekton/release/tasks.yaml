@@ -1,0 +1,25 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: release-notes
+spec:
+  #  stepTemplate:
+  #    env:
+  #      - name: SLACK_FAILED_WEBHOOK_URL
+  #        valueFrom:
+  #          secretKeyRef:
+  #            name: slack-webhook
+  #            key: SLACK_FAILED_WEBHOOK_URL
+  resources:
+    inputs:
+      - name: git-repo
+        type: git
+  steps:
+    - name: release-notes
+      image: gcr.io/engineering-devops/repo
+      workingDir: /workspace/git-repo
+      script: |
+        #!/usr/bin/env bash
+        git status
+        make -f docker/cli-tools/repo/Makefile release
