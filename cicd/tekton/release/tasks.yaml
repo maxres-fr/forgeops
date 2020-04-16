@@ -11,6 +11,8 @@ spec:
   #          secretKeyRef:
   #            name: slack-webhook
   #            key: SLACK_FAILED_WEBHOOK_URL
+  params:
+    - name: gitrevision
   resources:
     inputs:
       - name: git-repo
@@ -19,7 +21,16 @@ spec:
     - name: release-notes
       image: gcr.io/engineering-devops/repo
       workingDir: /workspace/git-repo
+      env:
+        - name: GIT_TAG_NAME
+          value: $(params.gitrevision)
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.github-token-secret)
+              key: bot-token
       script: |
         #!/usr/bin/env bash
-        git status
+        git fetch --tags
+        git checkout "${GIT_TAG_NAME}"
         make -f docker/cli-tools/repo/Makefile release
