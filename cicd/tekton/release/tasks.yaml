@@ -24,11 +24,11 @@ spec:
       env:
         - name: GIT_TAG_NAME
           value: $(params.gitrevision)
-        - name: GITHUB_TOKEN
+        - name: GH_TOKEN
           valueFrom:
             secretKeyRef:
-              name: $(params.github-token-secret)
-              key: bot-token
+              name: github-bot
+              key: token
       script: |
         #!/usr/bin/env bash
         git fetch --tags

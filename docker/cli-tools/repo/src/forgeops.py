@@ -9,7 +9,7 @@ import requests
 SPRINT_DATE_FMT = '%Y.%m.%d'
 GH_REPO = os.environ.get('GH_REPO', 'forgerock/forgeops')
 GH_API_URL = f'https://api.github.com/repos/{GH_REPO}/releases'
-print(GH_API_URL)
+
 def run(*args):
     result = subprocess.run(args, capture_output=True)
     if result.returncode != 0:
@@ -51,6 +51,8 @@ def find_last_tag(args):
         except ValueError as e:
             continue
         if parsed[0] < sprint_date:
+            possible_tags.append(parsed)
+        if parsed[0] == sprint_date and parsed[-1] != '0':
             possible_tags.append(parsed)
     # sort by date, then patch
     possible_tags.sort(key=operator.itemgetter(0, 2), reverse=True)

@@ -1,3 +1,4 @@
+#!/usr/bin/env make
 SHELL := /bin/bash
 .SHELLFLAGS := -eu -o pipefail -c  
 
@@ -38,8 +39,6 @@ CURRENT_TAG = $(shell forgeops current-tag)
 
 branch-notes:
 	@gitchangelog master..HEAD
-
-
 
 changelog.md:
 	@forgeops current-tag
