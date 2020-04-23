@@ -8,36 +8,36 @@ steps:
   - 'yamkt'
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'make'
-  waitFor: base
+  waitFor: ["base"]
   args:
   - '-f'
   - 'docker/cli-tools/Makefile'
   - 'cdm'
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'make'
-  waitFor: base
+  waitFor: ["base"]
   args:
   - '-f'
   - 'docker/cli-tools/Makefile'
   - 'cdk'
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'make'
-  waitFor: base
+  waitFor: ["base"]
   args:
   - '-f'
   - 'docker/cli-tools/Makefile'
   - 'toolbox'
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'make'
-  waitFor: base
+  waitFor: ["base"]
   args:
   - '-f'
   - 'docker/cli-tools/Makefile'
   - 'debug'
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'make'
-  waitFor: base
+  waitFor: ["base"]
   args:
-  - '-f'
-  - 'docker/cli-tools/Makefile'
-  - 'repo'
+    - '-f'
+    - 'docker/cli-tools/Makefile'
+    - 'repo'
