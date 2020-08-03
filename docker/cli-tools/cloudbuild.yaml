@@ -3,42 +3,59 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: base
   entrypoint: 'make'
+  env:                   
+  - "VERSION=${_VERSION}"
   args:
   - '-f'
   - 'docker/cli-tools/Makefile'
-  - 'yamkt'
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'make'
-  waitFor: ["base"]
-  args:
-  - '-f'
-  - 'docker/cli-tools/Makefile'
-  - 'cdm'
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'make'
-  waitFor: ["base"]
-  args:
-  - '-f'
-  - 'docker/cli-tools/Makefile'
-  - 'cdk'
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'make'
-  waitFor: ["base"]
-  args:
-  - '-f'
-  - 'docker/cli-tools/Makefile'
-  - 'toolbox'
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'make'
-  waitFor: ["base"]
-  args:
-  - '-f'
-  - 'docker/cli-tools/Makefile'
-  - 'debug'
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'make'
-  waitFor: ["base"]
-  args:
-    - '-f'
-    - 'docker/cli-tools/Makefile'
-    - 'repo'
+  - 'check'
+
+
+
+    #- name: 'gcr.io/cloud-builders/docker'
+    #  entrypoint: 'make'
+    #  waitFor: ["base"]
+    #  env:                    
+    #  - "VERSION=$_VERSION"    
+    #  args:
+    #  - '-f'
+    #  - 'docker/cli-tools/Makefile'
+    #  - 'cdm'
+    #- name: 'gcr.io/cloud-builders/docker'
+    #  entrypoint: 'make'
+    #  waitFor: ["base"]
+    #  env:                    
+    #  - "VERSION=$_VERSION"    
+    #  args:
+    #  - '-f'
+    #  - 'docker/cli-tools/Makefile'
+    #  - 'cdk'
+    #- name: 'gcr.io/cloud-builders/docker'
+    #  entrypoint: 'make'
+    #  waitFor: ["base"]
+    #  env:                    
+    #  - "VERSION=$_VERSION"    
+    #  args:
+    #  - '-f'
+    #  - 'docker/cli-tools/Makefile'
+    #  - 'toolbox'
+    #- name: 'gcr.io/cloud-builders/docker'
+    #  entrypoint: 'make'
+    #  waitFor: ["base"]
+    #  env:                    
+    #  - "VERSION=$_VERSION"    
+    #  args:
+    #  - '-f'
+    #  - 'docker/cli-tools/Makefile'
+    #  - 'debug'
+    #- name: 'gcr.io/cloud-builders/docker'
+    #  entrypoint: 'make'
+    #  waitFor: ["base"]
+    #  env:                    
+    #  - "VERSION=$_VERSION"    
+    #  args:
+    #    - '-f'
+    #    - 'docker/cli-tools/Makefile'
+    #    - 'repo'
+    #
+    #

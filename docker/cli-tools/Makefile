@@ -4,6 +4,12 @@ VERSION?=latest
 _VERSION=$(subst master,lastest,$(VERSION))
 SHELL:=/bin/bash
 DOCKER_BUILD:=docker build --build-arg VERSION=$(_VERSION)
+
+check:
+	echo $(_VERSION)
+	echo $(TAG_NAME)
+	echo $(BRANCH_NAME)
+
 repo-build:
 	docker build -t $(REGISTRY_URL)/repo:$(_VERSION) -f docker/cli-tools/repo/Dockerfile .
 
