@@ -1,10 +1,10 @@
 timeout: 1200s
+env:                    
+- "VERSION=${_VERSION}" 
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: base
   entrypoint: 'make'
-  env:                   
-  - "VERSION=${_VERSION}"
   args:
   - '-f'
   - 'docker/cli-tools/Makefile'
